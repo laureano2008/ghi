@@ -1,32 +1,60 @@
-let randomNumber = Math.floor(Math.random() * 100) + 1; // Número aleatório entre 1 e 100
-let attempts = 0; // Contador de tentativas
+let numberToGuess = Math.floor(Math.random() * 100) + 1;
+let attempts = 0;
+let maxAttempts = 10;
+let timer;
+let timeLeft = 30; // 30 segundos para adivinhar o número
 
-document.getElementById('check-button').addEventListener('click', function() {
-    let userGuess = parseInt(document.getElementById('guess').value);
-    let message = document.getElementById('message');
-    let attemptsDisplay = document.getElementById('attempts');
-    
-    // Incrementa o número de tentativas
-    attempts++;
+const guessInput = document.getElementById('guess');
+const checkButton = document.getElementById('check-button');
+const messageDiv = document.getElementById('message');
+const attemptsDiv = document.getElementById('attempts');
+const timerDiv = document.getElementById('timer');
 
-    // Valida se o palpite do usuário é um número válido
-    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
-        message.textContent = "Por favor, insira um número entre 1 e 100!";
-        message.style.color = "red";
+function startTimer() {
+    timer = setInterval(function() {
+        timeLeft--;
+        timerDiv.textContent = `Tempo restante: ${timeLeft}s`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            showMessage('Você perdeu! O tempo acabou.', 'incorrect');
+        }
+    }, 1000);
+}
+
+function showMessage(message, className) {
+    messageDiv.textContent = message;
+    messageDiv.className = className;
+}
+
+function checkGuess() {
+    const guess = parseInt(guessInput.value);
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+        showMessage('Digite um número entre 1 e 100!', 'incorrect');
         return;
     }
 
-    // Verifica se o palpite está correto
-    if (userGuess < randomNumber) {
-        message.textContent = "Muito baixo! Tente novamente.";
-        message.style.color = "blue";
-    } else if (userGuess > randomNumber) {
-        message.textContent = "Muito alto! Tente novamente.";
-        message.style.color = "blue";
+    attempts++;
+    attemptsDiv.textContent = `Tentativas: ${attempts}/${maxAttempts}`;
+
+    if (guess === numberToGuess) {
+        clearInterval(timer);
+        showMessage('Parabéns! Você acertou o número!', 'correct');
+    } else if (attempts >= maxAttempts) {
+        clearInterval(timer);
+        showMessage(`Você atingiu o número máximo de tentativas! O número era ${numberToGuess}.`, 'incorrect');
     } else {
-        message.textContent = `Parabéns! Você acertou o número ${randomNumber} em ${attempts} tentativas.`;
-        message.style.color = "green";
+        if (guess < numberToGuess) {
+            showMessage('O número é maior. Tente novamente!', 'incorrect');
+        } else {
+            showMessage('O número é menor. Tente novamente!', 'incorrect');
+        }
     }
 
-    attemptsDisplay.textContent = `Tentativas: ${attempts}`;
-});
+    guessInput.value = '';
+}
+
+checkButton.addEventListener('click', checkGuess);
+
+// Iniciar o jogo
+startTimer();
