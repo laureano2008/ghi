@@ -9,7 +9,14 @@
 <body>
     <div class="container">
         <h1>Jogo de Adivinhação</h1>
-        <p>Tente adivinhar o número entre 1 e 100!</p>
+        <p>Escolha o nível de dificuldade e tente adivinhar o número!</p>
+        
+        <label for="difficulty">Escolha o nível:</label>
+        <select id="difficulty">
+            <option value="easy">Fácil</option>
+            <option value="medium">Médio</option>
+            <option value="hard">Difícil</option>
+        </select>
         
         <input type="number" id="guess" placeholder="Digite seu palpite" />
         <button id="check-button">Verificar</button>
@@ -17,6 +24,7 @@
         <div id="message"></div>
         <div id="attempts"></div>
         <div id="timer"></div>
+        <button id="reset-button" style="display: none;">Reiniciar Jogo</button>
     </div>
 
     <script src="script.js"></script>
