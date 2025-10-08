@@ -1,8 +1,10 @@
 let numberToGuess = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 let maxAttempts = 10;
+let timeLeft = 30; // 30 segundos para adivinhar
 let timer;
-let timeLeft = 30; // 30 segundos para adivinhar o número
+let audioCorrect = new Audio('https://www.soundjay.com/button/beep-07.wav');
+let audioIncorrect = new Audio('https://www.soundjay.com/button/beep-02.wav');
 
 const guessInput = document.getElementById('guess');
 const checkButton = document.getElementById('check-button');
@@ -39,11 +41,14 @@ function checkGuess() {
 
     if (guess === numberToGuess) {
         clearInterval(timer);
+        audioCorrect.play();
         showMessage('Parabéns! Você acertou o número!', 'correct');
     } else if (attempts >= maxAttempts) {
         clearInterval(timer);
+        audioIncorrect.play();
         showMessage(`Você atingiu o número máximo de tentativas! O número era ${numberToGuess}.`, 'incorrect');
     } else {
+        audioIncorrect.play();
         if (guess < numberToGuess) {
             showMessage('O número é maior. Tente novamente!', 'incorrect');
         } else {

@@ -1,67 +1,86 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f8ff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     color: #333;
+    flex-direction: column;
 }
 
 .container {
     text-align: center;
-    padding: 30px;
+    padding: 40px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    transition: all 0.3s ease;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #1e90ff;
 }
 
 input {
-    padding: 10px;
-    font-size: 16px;
+    padding: 12px;
+    font-size: 18px;
     width: 100%;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    margin: 15px 0;
+    border: 2px solid #1e90ff;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
 #message {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-}
-
-#attempts, #timer {
-    margin-top: 10px;
-    font-size: 14px;
 }
 
 .correct {
     color: green;
+    font-size: 22px;
+    animation: bounce 1s ease infinite;
 }
 
 .incorrect {
     color: red;
+    font-size: 18px;
+}
+
+#attempts, #timer {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
 }
 
 #timer {
-    font-size: 18px;
     font-weight: bold;
     color: #ff6347;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
